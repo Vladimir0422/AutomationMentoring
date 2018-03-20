@@ -9,15 +9,17 @@ package lectures.lecture2;
 public class Lecture2 {
 
     public static void main(String[] args) {
-        int i;
-        int j;
-        int f;
-        
-        for (i = 1; i <= 7; i++) {
-            for (j = 1; j <= i; j++) {
+        int number = 9;
+        sorting(number);
+
+    }
+
+    public static void sorting(int number) {
+        for (int i = 1; i <= number; i++) {
+            for (int j = 1; j <= i; j++) {
                 System.out.print(j);
             }
-            for (f = 7; f > i; f--) {
+            for (int f = number; f > i; f--) {
                 System.out.print("*");
             }
             System.out.println();
