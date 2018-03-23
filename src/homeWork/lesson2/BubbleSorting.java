@@ -12,17 +12,26 @@ import java.util.Scanner;
 public class BubbleSorting {
 
     public static void main(String[] args) {
-        System.out.println("Please enter some number");
         int[] array = {5, 2, 8, 1, 3, 4, 9, 6, 10, 7};
-        Scanner input = new Scanner(System.in);
-        int numberForLooking = input.nextInt();
+        String[] arrayForTransforming = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+        int numberForLooking = getNumberForLooking();
         int first = 0;
         int last = array.length - 1;
 
         bubbleSorting(array);
+
         boolean result = binarySearch(array, first, last, numberForLooking);
         System.out.println(result);
 
+        oddEvenNumber(numberForLooking);
+
+        transformNumbersInToTheWords(numberForLooking, arrayForTransforming);
+    }
+
+    private static int getNumberForLooking() {
+        System.out.println("Please enter some number");
+        Scanner input = new Scanner(System.in);
+        return input.nextInt();
     }
 
     public static int[] bubbleSorting(int[] array) {
@@ -61,5 +70,23 @@ public class BubbleSorting {
 //            System.out.println(numberForLooking + " number isn't found in array");
 //        }
         return found;
+    }
+
+    public static void oddEvenNumber(int number) {
+        getNumberForLooking();
+        if (number % 2 == 0) {
+            System.out.println("Even number");
+        } else {
+            System.out.println("Odd number");
+        }
+    }
+
+    public static void transformNumbersInToTheWords(int number, String[] arrayForTransforming) {
+        int numberForTransforming = getNumberForLooking() - 1;
+        if (number > 0 && number <= 9) {
+            System.out.println(arrayForTransforming[numberForTransforming]);
+        }else{
+            System.out.println("There is no such number. Please enter number in range 1 to 9");
+        }
     }
 }
