@@ -8,7 +8,7 @@ import static homeWork.lesson2.BubbleSorting.getNumberForLooking;
  */
 
 
-public class Module3TransformNumbersInToTheWords {
+public class TransformNumbersInToTheWords {
     private static final String[] TRANSFORMED_NUMBERS = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
 
     public static void main(String[] args) {

@@ -8,7 +8,7 @@ import static homeWork.lesson2.BubbleSorting.getNumberForLooking;
  */
 
 
-public class Module3OddEvenNumbers {
+public class PrintOddEvenNumbers {
     public static void main(String[] args) {
         int number = getNumberForLooking();
         oddEvenNumber(number);
