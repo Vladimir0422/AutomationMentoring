@@ -12,17 +12,21 @@ import java.util.Scanner;
 public class BubbleSorting {
 
     public static void main(String[] args) {
-        System.out.println("Please enter some number");
         int[] array = {5, 2, 8, 1, 3, 4, 9, 6, 10, 7};
-        Scanner input = new Scanner(System.in);
-        int numberForLooking = input.nextInt();
+        int numberForLooking = getNumberForLooking();
         int first = 0;
         int last = array.length - 1;
 
         bubbleSorting(array);
+
         boolean result = binarySearch(array, first, last, numberForLooking);
         System.out.println(result);
+    }
 
+    static int getNumberForLooking() {
+        System.out.println("Please enter some number");
+        Scanner input = new Scanner(System.in);
+        return input.nextInt();
     }
 
     public static int[] bubbleSorting(int[] array) {
@@ -62,4 +66,5 @@ public class BubbleSorting {
 //        }
         return found;
     }
+
 }
