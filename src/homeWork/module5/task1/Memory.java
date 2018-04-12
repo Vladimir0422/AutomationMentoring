@@ -17,7 +17,19 @@ public class Memory {
         this.valueForMemory = valueForMemory;
     }
 
-    public void clearMemory(){
+    public void clearMemory() {
         this.valueForMemory = 0;
+    }
+
+    public double addToMemory(double valueInMemory, double resultOfCalculation) {
+        return valueInMemory + resultOfCalculation;
+    }
+
+    public double subtractFromMemory(double valueInMemory, double resultOfCalculation) {
+        return valueInMemory - resultOfCalculation;
+    }
+
+    public double calculateMemory(double valueInMemory, double resultOfCalculation) {
+        return valueInMemory + resultOfCalculation;
     }
 }

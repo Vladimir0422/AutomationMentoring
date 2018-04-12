@@ -7,9 +7,9 @@ package homeWork.module5.task2;
 
 
 public class Person {
-    String name;
-    String surname;
-    String email;
+    private String name;
+    private String surname;
+    private String email;
 
     public String getName() {
         return name;
