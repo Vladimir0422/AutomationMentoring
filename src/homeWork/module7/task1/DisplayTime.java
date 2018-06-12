@@ -6,7 +6,7 @@ package homeWork.module7.task1;
  */
 
 
-public class DisplayCurrentTime {
+public class DisplayTime {
     public static void main(String[] args) throws InterruptedException {
         DateTime server1 = new DateTime();
         DateTime server2 = new DateTime();
@@ -17,8 +17,8 @@ public class DisplayCurrentTime {
         server2.addObserver(client2);
         for (int i = 0; i < 5; i++) {
             server1.notifyObservers();
-            Thread.sleep(2000);
             server2.notifyObservers();
+            Thread.sleep(2000);
         }
     }
 }
