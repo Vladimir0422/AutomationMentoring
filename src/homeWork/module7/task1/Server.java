@@ -6,10 +6,11 @@ package homeWork.module7.task1;
  */
 
 
-interface Observed {
-    void addObserver(Observer o);
+interface Server {
+    void addObserver(Client o);
 
-    void removeObserver(Observer o);
+    void removeObserver(Client o);
 
     void notifyObservers();
 }
+
