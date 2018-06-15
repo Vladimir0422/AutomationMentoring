@@ -1,5 +1,7 @@
 package homeWork.module8.task1;
 
+import com.sun.xml.internal.ws.api.model.CheckedException;
+
 /**
  * Created by : Volodymyr_Silitskyi
  * Created at : 6/4/2018
@@ -7,7 +9,10 @@ package homeWork.module8.task1;
 
 
 public class CompressorForWords {
-    public static void main(String[] args) {
+    private static final char MIN_NUMBER = 47;
+    private static final char MAX_NUMBER = 58;
+
+    public static void main(String[] args) throws Exception {
         String stringForCompress = "h2elloooooooooooo2";
         String stringForUncompress = "hel2o9o9o9o9o2";
 
@@ -42,17 +47,15 @@ public class CompressorForWords {
         } else {
             newString.append(previousCharacter);
         }
-//        System.out.println(newString.toString());
         return stringForCompress;
     }
 
-    public static String uncompressString (String stringForUncompress){
-        final char MIN_NUMBER = 47;
-        final char MAX_NUMBER = 58;
+    public static String uncompressString(String stringForUncompress) throws Exception {
+
         StringBuilder newString = new StringBuilder();
         int numberOfRepeatedValue = 0;
         char previousCharacter = stringForUncompress.charAt(0);
-        try {
+
             for (int i = 1; i < stringForUncompress.length(); i++) {
                 if (stringForUncompress.charAt(i) > MIN_NUMBER && stringForUncompress.charAt(i) < MAX_NUMBER) {
                     numberOfRepeatedValue = Integer.parseInt(String.valueOf(stringForUncompress.charAt(i)));
@@ -67,9 +70,7 @@ public class CompressorForWords {
             newString.append(previousCharacter);
 
             System.out.println(newString.toString());
-        } catch (Exception e) {
-            System.out.println("Isn't correct value");
-        }
+
         return stringForUncompress;
     }
 
