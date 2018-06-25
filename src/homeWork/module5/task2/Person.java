@@ -11,6 +11,36 @@ public class Person {
     private String surname;
     private String email;
 
+    Person() {
+
+    }
+
+    Person(String getName, String getSurname, String getEmail) {
+        name = getName;
+        surname = getSurname;
+        email = getEmail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (!name.equals(person.name)) return false;
+        if (!surname.equals(person.surname)) return false;
+        return email.equals(person.email);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + surname.hashCode();
+        result = 31 * result + email.hashCode();
+        return result;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,16 +63,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    Person() {
-
-    }
-
-    Person(String getName, String getSurname, String getEmail) {
-        name = getName;
-        surname = getSurname;
-        email = getEmail;
     }
 
     public void printInfo() {
