@@ -1,6 +1,6 @@
 package homeWork.module8.task1;
 
-import com.sun.xml.internal.ws.api.model.CheckedException;
+import com.sun.xml.internal.org.jvnet.mimepull.DecodingException;
 
 /**
  * Created by : Volodymyr_Silitskyi
@@ -9,18 +9,16 @@ import com.sun.xml.internal.ws.api.model.CheckedException;
 
 
 public class CompressorForWords {
-    private static final char MIN_NUMBER = 47;
-    private static final char MAX_NUMBER = 58;
 
     public static void main(String[] args) throws Exception {
-        String stringForCompress = "h2elloooooooooooo2";
-        String stringForUncompress = "hel2o9o9o9o9o2";
+        String stringForCompress = "h2elloooooooooooo";
+        String stringForUncompress = "hel2o9o9W2";
 
         System.out.println(compressString(stringForCompress));
         System.out.println(uncompressString(stringForUncompress));
     }
 
-    public static String compressString(String stringForCompress) {
+    public static StringBuilder compressString(String stringForCompress) {
         StringBuilder newString = new StringBuilder();
         int numberOfRepeatedValue = 1;
         char previousCharacter = stringForCompress.charAt(0);
@@ -47,32 +45,30 @@ public class CompressorForWords {
         } else {
             newString.append(previousCharacter);
         }
-        return stringForCompress;
+        return newString.append(previousCharacter);
     }
 
-    public static String uncompressString(String stringForUncompress) throws Exception {
+    public static StringBuilder uncompressString(String stringForUncompress) throws DecodingException {
 
         StringBuilder newString = new StringBuilder();
         int numberOfRepeatedValue = 0;
         char previousCharacter = stringForUncompress.charAt(0);
 
-            for (int i = 1; i < stringForUncompress.length(); i++) {
-                if (stringForUncompress.charAt(i) > MIN_NUMBER && stringForUncompress.charAt(i) < MAX_NUMBER) {
-                    numberOfRepeatedValue = Integer.parseInt(String.valueOf(stringForUncompress.charAt(i)));
-                    for (int j = 1; j < numberOfRepeatedValue; j++) {
-                        newString.append("" + previousCharacter);
-                    }
-                } else {
-                    newString.append(previousCharacter);
-                    previousCharacter = stringForUncompress.charAt(i);
+        for (int i = 1; i < stringForUncompress.length(); i++) {
+            if (Character.isDigit(stringForUncompress.charAt(i))) {
+                numberOfRepeatedValue = Integer.parseInt(String.valueOf(stringForUncompress.charAt(i)));
+                for (int j = 1; j < numberOfRepeatedValue; j++) {
+                    newString.append("" + previousCharacter);
                 }
+            } else if (numberOfRepeatedValue == 5) {
+                throw new DecodingException("Cannot decode this string");
+            } else {
+                newString.append(previousCharacter);
+                previousCharacter = stringForUncompress.charAt(i);
             }
-            newString.append(previousCharacter);
-
-            System.out.println(newString.toString());
-
-        return stringForUncompress;
+        }
+        newString.append(previousCharacter);
+        return newString.append(previousCharacter);
     }
-
 }
 

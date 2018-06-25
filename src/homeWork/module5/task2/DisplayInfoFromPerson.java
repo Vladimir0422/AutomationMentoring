@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class DisplayInfoFromPerson {
     public static void main(String[] args) {
-        HashMap<Passport, Person> hashMap = new HashMap<Passport, Person>();
+        HashMap<Passport, Person> personInfo = new HashMap<Passport, Person>();
 
         Person firstPerson = new Person("Vova", "Sil", "email@com");
         Person secondPerson = new Person();
@@ -26,13 +26,12 @@ public class DisplayInfoFromPerson {
         passportInfo2.setSeries("NT");
         passportInfo2.setNumber(987);
 
-
         firstPerson.printInfo();
         secondPerson.printInfo();
         passportInfo.printPassportInfo();
-        hashMap.put(passportInfo, firstPerson);
-        hashMap.put(passportInfo2, secondPerson);
+        personInfo.put(passportInfo, firstPerson);
+        personInfo.put(passportInfo2, secondPerson);
 
-        System.out.println(hashMap.get(passportInfo).equals(hashMap.get(passportInfo2)));
+        System.out.println(personInfo.get(passportInfo).equals(personInfo.get(passportInfo2)));
     }
 }

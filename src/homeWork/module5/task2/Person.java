@@ -7,6 +7,20 @@ package homeWork.module5.task2;
 
 
 public class Person {
+    private String name;
+    private String surname;
+    private String email;
+
+    Person() {
+
+    }
+
+    Person(String getName, String getSurname, String getEmail) {
+        name = getName;
+        surname = getSurname;
+        email = getEmail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,10 +40,6 @@ public class Person {
         result = 31 * result + email.hashCode();
         return result;
     }
-
-    private String name;
-    private String surname;
-    private String email;
 
     public String getName() {
         return name;
@@ -53,16 +63,6 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    Person() {
-
-    }
-
-    Person(String getName, String getSurname, String getEmail) {
-        name = getName;
-        surname = getSurname;
-        email = getEmail;
     }
 
     public void printInfo() {

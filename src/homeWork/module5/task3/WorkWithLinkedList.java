@@ -22,11 +22,6 @@ public class WorkWithLinkedList {
         size = 0;
     }
 
-//    public boolean isEmpty()
-//
-//    {
-//        return start == null;
-//    }
 
     public int getSize()
 
@@ -176,7 +171,7 @@ public class WorkWithLinkedList {
     }
 
 
-    public int getElement(int index) {
+    public Object getElement(int index) {
         boolean flag = true;
         if (index < 0) {
             System.out.println("Incorrect index. Please enter index in range from 0  to " + (size - 1));

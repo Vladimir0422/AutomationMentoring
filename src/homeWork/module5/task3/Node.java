@@ -6,19 +6,19 @@ package homeWork.module5.task3;
  */
 
 
-public class Node {
+public class Node<T> {
 
-    protected int data;
+    protected T data;
 
     protected Node link;
 
-    public Node() {
-        link = null;
+//    public Node() {
+//        link = null;
+//
+//        data = 0;
+//    }
 
-        data = 0;
-    }
-
-    public Node(int d, Node n) {
+    public Node(T d, Node n) {
         data = d;
 
         link = n;
@@ -28,7 +28,7 @@ public class Node {
         link = n;
     }
 
-    public void setData(int d) {
+    public void setData(T d) {
         data = d;
     }
 
@@ -36,7 +36,7 @@ public class Node {
         return link;
     }
 
-    public int getData() {
+    public T getData() {
         return data;
     }
 }

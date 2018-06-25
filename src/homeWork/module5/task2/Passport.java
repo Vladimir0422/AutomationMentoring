@@ -7,6 +7,13 @@ package homeWork.module5.task2;
 
 
 public class Passport {
+    String series;
+    int number;
+
+    Passport() {
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -25,9 +32,6 @@ public class Passport {
         return result;
     }
 
-    String series;
-    int number;
-
     public String getSeries() {
         return series;
     }
@@ -42,10 +46,6 @@ public class Passport {
 
     public void setNumber(int number) {
         this.number = number;
-    }
-
-    Passport(){
-
     }
 
     public void printPassportInfo() {
