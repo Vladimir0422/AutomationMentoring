@@ -17,6 +17,12 @@ public class EQSolver {
 
         result = b * b - 4 * a * c;
 
+        calculate(a, b, c, result);
+    }
+
+    public static void calculate(double a, double b, double c, double result) {
+        double x1;
+        double x2;
         if (result > 0) {
             x1 = (-b + (Math.sqrt(b * b - 4 * a * c)) / (2 * a));
             x2 = (-b - (Math.sqrt(b * b - 4 * a * c)) / (2 * a));
