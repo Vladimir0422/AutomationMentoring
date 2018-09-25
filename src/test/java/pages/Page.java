@@ -1,28 +1,20 @@
 package pages;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import util.WebDriverManager;
 
 /**
  * Created by : Volodymyr_Silitskyi
  * Created at : 8/18/2018
  */
+public abstract class Page {
 
+   protected WebDriver driver;
 
-public class Page {
-   static WebDriver driver;
-
-    public Page(WebDriver driver) {
-        this.driver = driver;
+    protected Page() {
+        this.driver = WebDriverManager.getDriver();
         PageFactory.initElements(driver, this);
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-    }
 }

@@ -20,10 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 public class WomenPage extends Page {
 
-    public WomenPage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//*[@id='center_column']/ul/li")
     public WebElement table;
 
@@ -35,7 +31,7 @@ public class WomenPage extends Page {
         selectFromDropDown.click();
     }
 
-    public static double price(int position) throws ParseException {
+    public double price(int position) throws ParseException {
         WebElement price = driver.findElement(By.xpath(".//*[@id='center_column']/ul/li[" + position + "]/div/div[2]/div[1]/span[1]"));
 
         String deleteSpace = price.getText().toString().replace(" ", "");
