@@ -1,13 +1,16 @@
 package tests;
 
-import java.text.ParseException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import pages.HomePage;
 import pages.WomenPage;
 import util.WebDriverManager;
+
+import java.text.ParseException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by : Volodymyr_Silitskyi
@@ -25,26 +28,23 @@ public class SortingByPriceTest {
 
     @Before
     public void setUp() throws InterruptedException {
-        WebDriverManager.getDriver().get(URL);
-//        waitImplicit(driver, WAITE_10, TimeUnit.SECONDS);
-//        assertEquals(URL, driver.getCurrentUrl());
-
-//        waitForUrl(driver, URL);
+        onHomePage.login(URL);
+        assertEquals(URL, WebDriverManager.getDriver().getCurrentUrl());
         onHomePage.clickWomenButton();
-        onWomenPage.selectValueFromDropDown(sortingByLowestPrice);
-        Thread.sleep(3000);
     }
 
-//    @Ignore
     @Test
     public void verifySortedItems() throws ParseException {
-        onWomenPage.verifySortedItems();
+        onWomenPage.selectValueFromDropDown(sortingByLowestPrice);
+        Boolean incorrectSorting = onWomenPage.verifySortedItems();
+        assertTrue("Sorting is incorrect.", incorrectSorting);
     }
 
-    @Ignore
     @Test
     public void verifySortedItemsByColor() throws InterruptedException {
-        onWomenPage.verifySortedItemsByColor(colorOfItem);
+        int numberOfItems = onWomenPage.colorOfItem(colorOfItem);
+        int actualNumberOfItems = onWomenPage.verifySortedItemsByColor(colorOfItem);
+        assertEquals(numberOfItems, actualNumberOfItems);
     }
 
     @After

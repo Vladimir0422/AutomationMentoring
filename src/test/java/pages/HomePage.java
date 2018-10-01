@@ -17,7 +17,6 @@ public class HomePage extends Page {
     public WebElement womenButton;
 
     public void clickWomenButton() {
-//        WebElement womenButton = driver.findElement(By.xpath("//*[@id='block_top_menu']/ul/li[1]"));
         womenButton.click();
     }
 }

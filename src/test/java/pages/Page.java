@@ -10,11 +10,23 @@ import util.WebDriverManager;
  */
 public abstract class Page {
 
-   protected WebDriver driver;
+    protected WebDriver driver;
 
     protected Page() {
         this.driver = WebDriverManager.getDriver();
         PageFactory.initElements(driver, this);
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    public void login(String URL) {
+        getDriver().get(URL);
+        getDriver().manage().window().maximize();
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
 }

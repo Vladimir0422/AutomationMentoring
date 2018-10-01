@@ -18,8 +18,7 @@ public class WebDriverManager {
     }
 
     private static void defineBrowser() {
-
-        String browser = System.getProperty("browser");
+        String browser = System.getProperty("browser", "");
         switch (browser) {
             case "chrome":
                 driver = new ChromeDriver();
@@ -27,8 +26,10 @@ public class WebDriverManager {
             case "ie":
                 System.out.println("Create ie browser");
                 break;
-            default: driver = new ChromeDriver();
+            default:
+                driver = new ChromeDriver();
 //                throw new IllegalStateException("Unknown browser: " + browser);
+                break;
         }
     }
 
