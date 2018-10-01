@@ -2,6 +2,7 @@ package util;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WebDriverManager {
 
@@ -11,7 +12,7 @@ public class WebDriverManager {
     }
 
     public static WebDriver getDriver() {
-        if (driver == null) {
+        if (driver == null || ((RemoteWebDriver) driver).getSessionId() == null) {
             defineBrowser();
         }
         return driver;
