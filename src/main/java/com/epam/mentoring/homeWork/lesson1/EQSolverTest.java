@@ -38,8 +38,8 @@ public class EQSolverTest {
 
     @Test
     public void shouldPrintExpectedMessageIfResultLessThanZero() {
-        EQSolver.calculate(1, 0, 12, 0);
-        assertEquals("There is no solutions", outContent.toString());
+        EQSolver.calculate(-2, 1, -18, -178);
+        assertEquals("There is no solutions\r\n", outContent.toString());
     }
 
     @After

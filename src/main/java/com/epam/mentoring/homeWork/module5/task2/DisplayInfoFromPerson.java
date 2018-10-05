@@ -1,5 +1,8 @@
 package com.epam.mentoring.homeWork.module5.task2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 
 /**
@@ -9,15 +12,62 @@ import java.util.HashMap;
 
 
 public class DisplayInfoFromPerson {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DisplayInfoFromPerson.class);
+
     public static void main(String[] args) {
         HashMap<Passport, Person> personInfo = new HashMap<Passport, Person>();
 
-        Person firstPerson = new Person("Vova", "Sil", "email@com");
-        Person secondPerson = new Person();
+        Person firstPerson = Person.newBuilder()
+                .setName("Vova")
+                .setSurname("Sil")
+                .setEmail("email@com")
+                .setGender(Gender.MALE)
+                .setHobby(Hobby.SWIMMING)
+                .setPet(Pet.CAT)
+                .setNumberOfChildren(0)
+                .build();
+        LOGGER.info(firstPerson.toString());
+        try {
+            ValidationModule.validate(firstPerson);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        StatisticsModule.addPerson(firstPerson);
 
-        secondPerson.setName("Vova");
-        secondPerson.setSurname("Sil");
-        secondPerson.setEmail("email@com");
+        Person secondPerson = Person.newBuilder()
+                .setName("Vova2")
+                .setSurname("Sil2")
+                .setEmail("email2@com")
+                .setGender(Gender.MALE)
+                .setHobby(Hobby.DANCING)
+                .setPet(Pet.BIRD)
+                .setNumberOfChildren(3)
+                .build();
+        LOGGER.info(secondPerson.toString());
+        try {
+            ValidationModule.validate(secondPerson);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        StatisticsModule.addPerson(secondPerson);
+
+        Person thirdPerson = Person.newBuilder()
+                .setName("Vova3")
+                .setSurname("Sil3")
+                .setEmail("email3@com")
+                .setGender(Gender.MALE)
+                .setHobby(Hobby.GAMING)
+                .setPet(Pet.CAT)
+                .setNumberOfChildren(-2)
+                .build();
+        LOGGER.info(thirdPerson.toString());
+        try {
+            ValidationModule.validate(thirdPerson);
+        } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+        }
+        StatisticsModule.addPerson(thirdPerson);
+        StatisticsModule.logStatistics();
 
         Passport passportInfo = new Passport();
         Passport passportInfo2 = new Passport();
