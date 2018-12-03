@@ -30,22 +30,22 @@ public class Waiters {
     }
 
     public static void waitForSorting(WebDriver driver, String xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, Waiters.WAITE_60);
-        wait.until((WebDriver webDriver) -> {
-            List<WebElement> itemsInTable = webDriver.findElements(By.xpath(xpath));
-            boolean isSorted = false;
-            for (int i = 0; i < itemsInTable.size() - 1; i++) {
-                double firstPrice = Double.parseDouble(itemsInTable.get(i).getText().replaceAll("\\$", "").trim());
-                double nextPrice = Double.parseDouble(itemsInTable.get(i + 1).getText().replaceAll("\\$", "").trim());
-
-                if (firstPrice < nextPrice) {
-                    isSorted = true;
-                } else {
-                    isSorted = false;
-                    break;
-                }
-            }
-            return isSorted;
-        });
+//        WebDriverWait wait = new WebDriverWait(driver, Waiters.WAITE_60);
+//        wait.until((WebDriver webDriver) -> {
+//            List<WebElement> itemsInTable = webDriver.findElements(By.xpath(xpath));
+//            boolean isSorted = false;
+//            for (int i = 0; i < itemsInTable.size() - 1; i++) {
+//                double firstPrice = Double.parseDouble(itemsInTable.get(i).getText().replaceAll("\\$", "").trim());
+//                double nextPrice = Double.parseDouble(itemsInTable.get(i + 1).getText().replaceAll("\\$", "").trim());
+//
+//                if (firstPrice < nextPrice) {
+//                    isSorted = true;
+//                } else {
+//                    isSorted = false;
+//                    break;
+//                }
+//            }
+//            return isSorted;
+//        });
     }
 }

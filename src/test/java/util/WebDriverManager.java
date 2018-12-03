@@ -33,5 +33,4 @@ public class WebDriverManager {
                 break;
         }
     }
-
 }

@@ -33,6 +33,11 @@ public class SortingByPriceTest {
         onHomePage.clickWomenButton();
     }
 
+    @After
+    public void closeBrowser() {
+        WebDriverManager.getDriver().quit();
+    }
+
     @Test
     public void verifySortedItems() throws ParseException {
         onWomenPage.selectValueFromDropDown(sortingByLowestPrice);
@@ -45,10 +50,5 @@ public class SortingByPriceTest {
         int numberOfItems = onWomenPage.colorOfItem(colorOfItem);
         int actualNumberOfItems = onWomenPage.verifySortedItemsByColor(colorOfItem);
         assertEquals(numberOfItems, actualNumberOfItems);
-    }
-
-    @After
-    public void closeBrowser() {
-        WebDriverManager.getDriver().quit();
     }
 }
