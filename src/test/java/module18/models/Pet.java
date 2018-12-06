@@ -1,9 +1,10 @@
 package module18.models;
 
-import com.google.common.collect.ImmutableList;
+import module18.Statuses.PetStatus;
 
 import javax.swing.text.html.HTML;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by : Volodymyr_Silitskyi
@@ -11,13 +12,13 @@ import java.util.List;
  */
 
 
-public class Pet {
+public class Pet extends PetFactory {
     private long id;
     private Category category;
     private String name;
     private List<String> photoUrls;
     private List<HTML.Tag> tags;
-    private String status;
+    private PetStatus status;
 
     public long getId() {
         return id;
@@ -59,25 +60,30 @@ public class Pet {
         this.tags = tags;
     }
 
-    public String getStatus() {
+    public PetStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PetStatus status) {
         this.status = status;
     }
 
-    public static Pet createBarsik() {
-        Category category = new Category();
-        category.setName("Cats");
-        category.setId(123123);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pet)) return false;
+        Pet that = (Pet) o;
+        return getId() == that.getId() &&
+                getCategory() == that.getCategory() &&
+                getName() == that.getName() &&
+                getPhotoUrls() == that.getPhotoUrls() &&
+                getTags() == that.getTags() &&
+                Objects.equals(getStatus(), that.getStatus());
+    }
 
-        Pet cat = new Pet();
-        cat.setId(807011);
-        cat.setName("BarsikSV5");
-        cat.setCategory(category);
-        cat.setPhotoUrls(ImmutableList.of("someUrl"));
-        cat.setStatus("available");
-        return cat;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getId(), getCategory(), getName(), getPhotoUrls(), getTags(), getStatus());
     }
 }

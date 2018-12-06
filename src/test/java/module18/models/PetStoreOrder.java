@@ -2,11 +2,11 @@ package module18.models;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import module18.Statuses.OrderStatus;
 import module18.config.DateTimeDeserializer;
 import module18.config.DateTimeSerializer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -25,8 +25,7 @@ public class PetStoreOrder {
     @JsonDeserialize(using = DateTimeDeserializer.class)
     @JsonSerialize(using = DateTimeSerializer.class)
     private LocalDateTime shipDate;
-
-    private String status;
+    private OrderStatus status;
     private boolean complete = false;
 
     public long getId() {
@@ -61,11 +60,11 @@ public class PetStoreOrder {
         this.shipDate = shipDate;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

@@ -2,9 +2,11 @@ package module18.tests;
 
 import com.google.common.collect.ImmutableList;
 import io.restassured.response.Response;
+import module18.Statuses.PetStatus;
 import module18.endpoints.PetStorePetEndpoint;
 import module18.models.Category;
 import module18.models.Pet;
+import module18.models.PetFactory;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,30 +21,30 @@ import static org.hamcrest.Matchers.*;
 
 public class SampleTestsPetStore {
 
-    public static final PetStorePetEndpoint PET_STORE_PET_ENDPOINT = new PetStorePetEndpoint();
+    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
 
     @BeforeClass
     public static void cleanup() {
-        PET_STORE_PET_ENDPOINT.getPetByStatus("available")
+        instance.getInstance().getPetByStatus(PetStatus.AVAILABLE)
                 .body()
                 .jsonPath()
                 .getList("findAll {item -> item.name == 'BarsikSV5'}", Pet.class)
                 .stream()
-                .forEach(pet -> PET_STORE_PET_ENDPOINT.deletePetById(pet.getId()));
+                .forEach(pet -> instance.getInstance().deletePetById(pet.getId()));
     }
 
     @Test
     public void verifyStatusCode() {
-        PET_STORE_PET_ENDPOINT
-                .getPetByStatus("available")
+        instance.getInstance()
+                .getPetByStatus(PetStatus.AVAILABLE)
                 .then()
                 .statusCode(200);
     }
 
     @Test
     public void verifyBody() {
-        PET_STORE_PET_ENDPOINT
-                .getPetByStatus("available")
+        instance.getInstance()
+                .getPetByStatus(PetStatus.AVAILABLE)
                 .then()
                 .assertThat()
                 .body(is(not(isEmptyOrNullString())));
@@ -50,7 +52,7 @@ public class SampleTestsPetStore {
 
     @Test
     public void verifyNotExistingPetReturn404() {
-        PET_STORE_PET_ENDPOINT
+        instance.getInstance()
                 .getPetById("123412423423")
                 .then()
                 .statusCode(404);
@@ -67,9 +69,9 @@ public class SampleTestsPetStore {
         cat.setName("BarsikSV4");
         cat.setCategory(category);
         cat.setPhotoUrls(ImmutableList.of("someUrl"));
-        cat.setStatus("available");
+        cat.setStatus(PetStatus.AVAILABLE);
 
-        PET_STORE_PET_ENDPOINT
+        instance.getInstance()
                 .createPet(cat)
                 .then()
                 .statusCode(200);
@@ -79,7 +81,7 @@ public class SampleTestsPetStore {
     public void verifyPetHasIdAfterCreation() {
         Pet barsik = Pet.createBarsik();
 
-        Response petResponse = PET_STORE_PET_ENDPOINT
+        Response petResponse = instance.getInstance()
                 .createPet(barsik);
 
         Pet petFromService = petResponse.body().as(Pet.class);

@@ -7,17 +7,15 @@ package module18.Statuses;
 
 
 public enum OrderStatus {
-    PLACED("placed"),
-    APPROVED("approved"),
-    DELIVERED("delivered");
+    PLACED, APPROVED, DELIVERED;
 
-    private String orderStatus;
-
-    OrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String orderStatus() {
-        return orderStatus;
-    }
+//    private String orderStatus;
+//
+//    OrderStatus(String orderStatus) {
+//        this.orderStatus = orderStatus;
+//    }
+//
+//    public String orderStatus() {
+//        return orderStatus;
+//    }
 }

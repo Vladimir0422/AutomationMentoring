@@ -19,12 +19,18 @@ import org.junit.Test;
 
 
 public class TestPetStoreOrder {
-    private static final PetStorePetEndpoint PET_STORE_PET_ENDPOINT = new PetStorePetEndpoint();
+    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
+    ///Value for category
     private static long categoryId = 123123;
     private static String categoryName = "Cats";
+    ///Value for pet
     private static long petID = 123125;
-    private static long orderId = 5;
     private static String petName = "BarsikSV4";
+    private static String photoUrl = "someUrl";
+    ///Value for order
+    private static long orderId = 5;
+    private static int quantityForOrder = 11;
+
 
     @Before
     public void createAndPostPet() {
@@ -37,34 +43,34 @@ public class TestPetStoreOrder {
         cat.setId(petID);
         cat.setName(petName);
         cat.setCategory(category);
-        cat.setPhotoUrls(ImmutableList.of("someUrl"));
-        cat.setStatus(PetStatus.AVAILABLE.status());
+        cat.setPhotoUrls(ImmutableList.of(photoUrl));
+        cat.setStatus(PetStatus.AVAILABLE);
 
-        PET_STORE_PET_ENDPOINT
+        instance.getInstance()
                 .createPet(cat)
                 .then()
                 .statusCode(200);
 
-        PET_STORE_PET_ENDPOINT
-                .createPetOrder(petID, orderId)
+        instance.getInstance()
+                .createPetOrder(petID, orderId, quantityForOrder)
                 .then()
                 .statusCode(200);
     }
 
     @After
     public void cleanUp() {
-        PET_STORE_PET_ENDPOINT.deletePetOrder(orderId)
+        instance.getInstance().deletePetOrder(orderId)
                 .then()
                 .statusCode(200);
 
-        PET_STORE_PET_ENDPOINT.deletePetById(petID)
+        instance.getInstance().deletePetById(petID)
                 .then()
                 .statusCode(200);
     }
 
     @Test
     public void verifyOrder() {
-        PetStoreOrder actualPetStoreOrder = PET_STORE_PET_ENDPOINT.getPetOrderByOrderId(orderId)
+        PetStoreOrder actualPetStoreOrder = instance.getInstance().getPetOrderByOrderId(orderId)
                 .then()
                 .statusCode(200)
                 .and()

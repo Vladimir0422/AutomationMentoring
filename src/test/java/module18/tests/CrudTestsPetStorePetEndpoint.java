@@ -1,6 +1,7 @@
 package module18.tests;
 
 import io.restassured.response.Response;
+import module18.Statuses.PetStatus;
 import module18.endpoints.PetStorePetEndpoint;
 import module18.models.Pet;
 import org.assertj.core.api.Assertions;
@@ -16,16 +17,16 @@ import org.junit.Test;
 
 public class CrudTestsPetStorePetEndpoint {
 
-    public static final PetStorePetEndpoint PET_STORE_PET_ENDPOINT = new PetStorePetEndpoint();
+    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
 
     @BeforeClass
     public static void cleanup() {
-        PET_STORE_PET_ENDPOINT.getPetByStatus("available")
+        instance.getInstance().getPetByStatus(PetStatus.AVAILABLE)
                 .body()
                 .jsonPath()
                 .getList("findAll {item -> item.name == 'BarsikSV5'}", Pet.class)
                 .stream()
-                .forEach(pet -> PET_STORE_PET_ENDPOINT.deletePetById(pet.getId()));
+                .forEach(pet -> instance.getInstance().deletePetById(pet.getId()));
     }
 
     @Test
@@ -34,11 +35,11 @@ public class CrudTestsPetStorePetEndpoint {
         Pet barsik = Pet.createBarsik();
 
         //When
-        Response petResponse = PET_STORE_PET_ENDPOINT.createPet(barsik);
+        Response petResponse = instance.getInstance().createPet(barsik);
 
         //Then
         long createdPetId = petResponse.body().as(Pet.class).getId();
-        Pet createdPetFromService = PET_STORE_PET_ENDPOINT.getPetById(String.valueOf(createdPetId)).as(Pet.class);
+        Pet createdPetFromService = instance.getInstance().getPetById(String.valueOf(createdPetId)).as(Pet.class);
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(createdPetFromService.getName()).as("Name").isEqualTo(barsik.getName());
@@ -50,11 +51,11 @@ public class CrudTestsPetStorePetEndpoint {
     public void readPet() {
         //Given
         Pet barsik = Pet.createBarsik();
-        Response petResponse = PET_STORE_PET_ENDPOINT.createPet(barsik);
+        Response petResponse = instance.getInstance().createPet(barsik);
         long createdPetId = petResponse.body().as(Pet.class).getId();
 
         //When
-        Pet createdPetFromService = PET_STORE_PET_ENDPOINT.getPetById(String.valueOf(createdPetId)).as(Pet.class);
+        Pet createdPetFromService = instance.getInstance().getPetById(String.valueOf(createdPetId)).as(Pet.class);
 
         //Then
         SoftAssertions assertions = new SoftAssertions();
@@ -67,11 +68,11 @@ public class CrudTestsPetStorePetEndpoint {
     public void updatePet() {
         //Given
         Pet barsik = Pet.createBarsik();
-        PET_STORE_PET_ENDPOINT.createPet(barsik);
-        barsik.setStatus("sold");
+        instance.getInstance().createPet(barsik);
+        barsik.setStatus(PetStatus.SOLD);
 
         //When
-        Pet createdPetFromService = PET_STORE_PET_ENDPOINT.updatePet(barsik).as(Pet.class);
+        Pet createdPetFromService = instance.getInstance().updatePet(barsik).as(Pet.class);
 
         //Then
         SoftAssertions assertions = new SoftAssertions();
@@ -84,13 +85,13 @@ public class CrudTestsPetStorePetEndpoint {
     public void deletePet() {
         //Given
         Pet barsik = Pet.createBarsik();
-        PET_STORE_PET_ENDPOINT.createPet(barsik);
-        Pet createdPetFromService = PET_STORE_PET_ENDPOINT.updatePet(barsik).as(Pet.class);
+        instance.getInstance().createPet(barsik);
+        Pet createdPetFromService = instance.getInstance().updatePet(barsik).as(Pet.class);
 
         //When
-        PET_STORE_PET_ENDPOINT.deletePetById(barsik.getId());
+        instance.getInstance().deletePetById(barsik.getId());
         //Then
-        Response petById = PET_STORE_PET_ENDPOINT.getPetById(String.valueOf(createdPetFromService.getId()));
+        Response petById = instance.getInstance().getPetById(String.valueOf(createdPetFromService.getId()));
         Assertions.assertThat(petById.getStatusCode()).isEqualTo(404);
     }
 }

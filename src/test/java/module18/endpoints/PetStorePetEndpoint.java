@@ -5,7 +5,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import module18.Statuses.OrderStatus;
+import module18.Statuses.PetStatus;
 import module18.models.Pet;
+import module18.models.PetFactory;
 import module18.models.PetStoreOrder;
 
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import static module18.config.Config.*;
 public class PetStorePetEndpoint {
 
     private PetStoreOrder petStoreOrder;
+    private static PetStorePetEndpoint instance;
 
     public Response getPetById(String id) {
         return given()
@@ -31,7 +34,7 @@ public class PetStorePetEndpoint {
                 .extract().response();
     }
 
-    public Response getPetByStatus(String status) {
+    public Response getPetByStatus(PetStatus status) {
         return given()
                 .queryParam("status", status)
                 .when()
@@ -77,9 +80,9 @@ public class PetStorePetEndpoint {
 
     ///Pet store order
 
-    public Response createPetOrder(long petId, long orderId) {
+    public Response createPetOrder(long petId, long orderId, int quantityForOrder) {
         return given()
-                .body(createOrder(petId, orderId))
+                .body(createDefaultOrder(petId, orderId, quantityForOrder))
                 .contentType(ContentType.JSON)
                 .when()
                 .post(CREATE_PET_STORE_ORDER);
@@ -99,14 +102,14 @@ public class PetStorePetEndpoint {
                 .get(FIND_PET_STORE_ORDER_BY_ORDER_ID);
     }
 
-    private PetStoreOrder createOrder(long petId, long orderId) {
+    private PetStoreOrder createDefaultOrder(long petId, long orderId, int quantityForOrder) {
         petStoreOrder = new PetStoreOrder();
 
         petStoreOrder.setId(orderId);
         petStoreOrder.setPetId(petId);
-        petStoreOrder.setQuantity(11);
+        petStoreOrder.setQuantity(quantityForOrder);
         petStoreOrder.setShipDate(LocalDateTime.now().plusDays(1));
-        petStoreOrder.setStatus(OrderStatus.DELIVERED.orderStatus());
+        petStoreOrder.setStatus(OrderStatus.DELIVERED);
         petStoreOrder.setComplete(true);
 
         return petStoreOrder;
@@ -114,5 +117,12 @@ public class PetStorePetEndpoint {
 
     public PetStoreOrder getPetStoreObject() {
         return petStoreOrder;
+    }
+
+    public static PetStorePetEndpoint getInstance() {
+        if (instance == null) {
+            instance = new PetStorePetEndpoint();
+        }
+        return instance;
     }
 }
