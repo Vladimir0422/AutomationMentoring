@@ -7,7 +7,6 @@ import io.restassured.specification.RequestSpecification;
 import module18.Statuses.OrderStatus;
 import module18.Statuses.PetStatus;
 import module18.models.Pet;
-import module18.models.PetFactory;
 import module18.models.PetStoreOrder;
 
 import java.time.LocalDateTime;
@@ -21,6 +20,10 @@ import static module18.config.Config.*;
 
 
 public class PetStorePetEndpoint {
+
+    private PetStorePetEndpoint() {
+
+    }
 
     private PetStoreOrder petStoreOrder;
     private static PetStorePetEndpoint instance;
@@ -98,7 +101,7 @@ public class PetStorePetEndpoint {
 
     public Response getPetOrderByOrderId(long orderId) {
         return given()
-                .pathParam("orderId" , orderId)
+                .pathParam("orderId", orderId)
                 .get(FIND_PET_STORE_ORDER_BY_ORDER_ID);
     }
 

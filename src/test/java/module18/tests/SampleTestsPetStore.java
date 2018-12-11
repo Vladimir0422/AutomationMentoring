@@ -20,8 +20,7 @@ import static org.hamcrest.Matchers.*;
 
 
 public class SampleTestsPetStore {
-
-    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
+    private static final PetStorePetEndpoint instance = PetStorePetEndpoint.getInstance();
 
     @BeforeClass
     public static void cleanup() {
@@ -79,7 +78,7 @@ public class SampleTestsPetStore {
 
     @Test
     public void verifyPetHasIdAfterCreation() {
-        Pet barsik = Pet.createBarsik();
+        Pet barsik = PetFactory.createBarsik();
 
         Response petResponse = instance.getInstance()
                 .createPet(barsik);

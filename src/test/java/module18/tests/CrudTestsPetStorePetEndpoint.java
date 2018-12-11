@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import module18.Statuses.PetStatus;
 import module18.endpoints.PetStorePetEndpoint;
 import module18.models.Pet;
+import module18.models.PetFactory;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.BeforeClass;
@@ -16,8 +17,7 @@ import org.junit.Test;
 
 
 public class CrudTestsPetStorePetEndpoint {
-
-    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
+    private static final PetStorePetEndpoint instance = PetStorePetEndpoint.getInstance();
 
     @BeforeClass
     public static void cleanup() {
@@ -32,7 +32,7 @@ public class CrudTestsPetStorePetEndpoint {
     @Test
     public void createPet() {
         //Given
-        Pet barsik = Pet.createBarsik();
+        Pet barsik = PetFactory.createBarsik();
 
         //When
         Response petResponse = instance.getInstance().createPet(barsik);
@@ -50,7 +50,7 @@ public class CrudTestsPetStorePetEndpoint {
     @Test
     public void readPet() {
         //Given
-        Pet barsik = Pet.createBarsik();
+        Pet barsik = PetFactory.createBarsik();
         Response petResponse = instance.getInstance().createPet(barsik);
         long createdPetId = petResponse.body().as(Pet.class).getId();
 
@@ -67,7 +67,7 @@ public class CrudTestsPetStorePetEndpoint {
     @Test
     public void updatePet() {
         //Given
-        Pet barsik = Pet.createBarsik();
+        Pet barsik = PetFactory.createBarsik();
         instance.getInstance().createPet(barsik);
         barsik.setStatus(PetStatus.SOLD);
 
@@ -84,7 +84,7 @@ public class CrudTestsPetStorePetEndpoint {
     @Test
     public void deletePet() {
         //Given
-        Pet barsik = Pet.createBarsik();
+        Pet barsik = PetFactory.createBarsik();
         instance.getInstance().createPet(barsik);
         Pet createdPetFromService = instance.getInstance().updatePet(barsik).as(Pet.class);
 

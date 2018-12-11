@@ -10,6 +10,10 @@ import module18.Statuses.PetStatus;
 
 
 public class PetFactory {
+
+    private void PetFactory(){
+    }
+
     public static Pet createBarsik() {
         Category category = new Category();
         category.setName("Cats");

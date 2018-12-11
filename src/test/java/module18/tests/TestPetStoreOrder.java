@@ -19,7 +19,8 @@ import org.junit.Test;
 
 
 public class TestPetStoreOrder {
-    public static final PetStorePetEndpoint instance = new PetStorePetEndpoint();
+    private final PetStorePetEndpoint instance = PetStorePetEndpoint.getInstance();
+
     ///Value for category
     private static long categoryId = 123123;
     private static String categoryName = "Cats";

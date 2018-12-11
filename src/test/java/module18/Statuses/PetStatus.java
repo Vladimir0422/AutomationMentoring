@@ -7,15 +7,5 @@ package module18.Statuses;
 
 
 public enum PetStatus {
-    AVAILABLE, PENDING, SOLD;
-
-//    private String status;
-//
-//    PetStatus(String status) {
-//        this.status = status;
-//    }
-//
-//    public String status() {
-//        return status;
-//    }
+    AVAILABLE, PENDING, SOLD
 }

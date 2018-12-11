@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 
 
-public class Pet extends PetFactory {
+public class Pet {
     private long id;
     private Category category;
     private String name;
